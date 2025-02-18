@@ -34,7 +34,7 @@ workflows:
           - project_path: "$BITRISE_PROJECT_PATH"
           - scheme: "$BITRISE_SCHEME"
           - distribution_method: "$BITRISE_DISTRIBUTION_METHOD"
-          - automatic_code_signing: off
+          - automatic_code_signing: apple-id
           - cache_level: none
           - team_id: "$BITRISE_TEAM_ID"
     - deploy-to-itunesconnect-application-loader@1:
