@@ -27,8 +27,8 @@ workflows:
     - git-clone@8: {}
     - certificate-and-profile-installer@1:
         inputs:
-          - certificate_url: "file://./distribution.p12"
-          - provisioning_profile_url: "file://./profile.mobileprovision"
+          - certificate_url: "file://./Bitrise_Test/distribution.p12"
+          - provisioning_profile_url: "file://./Bitrise_Test/profile.mobileprovision"
           - keychain_path: "$HOME/Library/Keychains/login.keychain"
           - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
     - xcode-build-for-test@3:
