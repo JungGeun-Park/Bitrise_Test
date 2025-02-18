@@ -28,6 +28,7 @@ workflows:
           - provisioning_profile_url: "file://./Bitrise_Test/profile.mobileprovision"
           - keychain_path: "$HOME/Library/Keychains/login.keychain-db"
           - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
+          - team_id: "$TEAM_ID"
     - xcode-archive@5:
         inputs:
           - project_path: "$BITRISE_PROJECT_PATH"
