@@ -28,6 +28,12 @@ workflows:
           - provisioning_profile_url: "file://./Bitrise_Test/profile.mobileprovision"
           - keychain_path: "$HOME/Library/Keychains/login.keychain-db"
           - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
+    - deploy-to-itunesconnect-application-loader@1:
+        inputs:
+          - ipa_path: "$BITRISE_IPA_PATH"
+          - apple_id_email: "$APPLE_ID"
+          # - password: "$APP_STORE_PW"
+          - app_specific_password: "$APPLE_APP_SPECIFIC_PASSWORD"        
     - xcode-archive@5:
         inputs:
         - project_path: "$BITRISE_PROJECT_PATH"
@@ -35,12 +41,6 @@ workflows:
         - distribution_method: "$BITRISE_DISTRIBUTION_METHOD"
         - automatic_code_signing: api-key
         - cache_level: none
-    - deploy-to-itunesconnect-application-loader@1:
-        inputs:
-          - ipa_path: "$BITRISE_IPA_PATH"
-          - apple_id_email: "$APPLE_ID"
-          # - password: "$APP_STORE_PW"
-          - app_specific_password: "$APPLE_APP_SPECIFIC_PASSWORD"        
     - deploy-to-bitrise-io@2: {}
     triggers:
       push:
