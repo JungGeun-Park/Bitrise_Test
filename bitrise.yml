@@ -30,15 +30,15 @@ workflows:
           - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
     - xcode-archive@5:
         inputs:
-        - project_path: "$BITRISE_PROJECT_PATH"
-        - scheme: "$BITRISE_SCHEME"
-        - distribution_method: "$BITRISE_DISTRIBUTION_METHOD"
-        - automatic_code_signing: apple-id
-        - cache_level: none
+          - project_path: "$BITRISE_PROJECT_PATH"
+          - scheme: "$BITRISE_SCHEME"
+          - distribution_method: "$BITRISE_DISTRIBUTION_METHOD"
+          - automatic_code_signing: apple-id
+          - cache_level: none
+          - team_id: "$TEAM_ID"
     - deploy-to-itunesconnect-application-loader@1:
         inputs:
           - ipa_path: "$BITRISE_IPA_PATH"
-          - team_id: "$TEAM_ID"
           - apple_id_email: "$APPLE_ID"
           - app_specific_password: "$APPLE_APP_SPECIFIC_PASSWORD"
     - deploy-to-bitrise-io@2: {}
