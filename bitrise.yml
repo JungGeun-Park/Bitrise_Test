@@ -25,6 +25,12 @@ workflows:
       your project's dependencies if any and build your project.
     steps:
     - git-clone@8: {}
+    - certificate-and-profile-installer@1:
+        inputs:
+          - certificate_url: "file://./distribution.p12"
+          - provisioning_profile_url: "file://./profile.mobileprovision"
+          - keychain_path: "$HOME/Library/Keychains/login.keychain"
+          - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
     - xcode-build-for-test@3:
         inputs:
         - project_path: "$BITRISE_PROJECT_PATH"
@@ -52,3 +58,4 @@ app:
   - BITRISE_DISTRIBUTION_METHOD: app-store
     opts:
       is_expand: false
+  - BITRISE_KEYCHAIN_PASSWORD: "123456"
