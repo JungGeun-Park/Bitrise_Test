@@ -29,7 +29,7 @@ workflows:
         inputs:
         - project_path: "$BITRISE_PROJECT_PATH"
         - scheme: "$BITRISE_SCHEME"
-        - destination: platform=iOS
+        - destination: "generic/platform=iOS"
         - cache_level: none
     - deploy-to-bitrise-io@2: {}
     triggers:
