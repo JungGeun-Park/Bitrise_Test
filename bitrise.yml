@@ -35,36 +35,12 @@ workflows:
         - distribution_method: "$BITRISE_DISTRIBUTION_METHOD"
         - automatic_code_signing: api-key
         - cache_level: none
-    - deploy-to-bitrise-io@2: {}
-  build:
-    summary: Build your Xcode project.
-    description: The workflow will first clone your Git repository, cache and install
-      your project's dependencies if any and build your project.
-    steps:
-    - git-clone@8: {}
-    - script@1:
-        title: Create Keychain
+    - deploy-to-itunesconnect-application-loader@1:
         inputs:
-          - content: |-
-              #!/bin/bash
-              set -ex
-              security delete-keychain login.keychain-db
-              security create-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
-              security default-keychain -s login.keychain-db
-              security unlock-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
-              security set-keychain-settings -t 3600 -l login.keychain-db
-    - certificate-and-profile-installer@1:
-        inputs:
-          - certificate_url: "file://./Bitrise_Test/distribution.p12"
-          - provisioning_profile_url: "file://./Bitrise_Test/profile.mobileprovision"
-          - keychain_path: "$HOME/Library/Keychains/login.keychain-db"
-          - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
-    - xcode-build-for-test@3:
-        inputs:
-        - project_path: "$BITRISE_PROJECT_PATH"
-        - scheme: "$BITRISE_SCHEME"
-        - destination: "generic/platform=iOS"
-        - cache_level: none
+          - ipa_path: "$BITRISE_IPA_PATH"
+          - apple_id_email: "$APPLE_ID"
+          # - password: "$APP_STORE_PW"
+          - app_specific_password: "$APPLE_APP_SPECIFIC_PASSWORD"        
     - deploy-to-bitrise-io@2: {}
     triggers:
       push:
@@ -87,3 +63,5 @@ app:
     opts:
       is_expand: false
   - BITRISE_KEYCHAIN_PASSWORD: "123456"
+  - APPLE_ID: puzznic@inka.co.kr
+  - APPLE_APP_SPECIFIC_PASSWORD: qbrz-hmfz-robj-eohm
