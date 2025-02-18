@@ -25,16 +25,17 @@ workflows:
       your project's dependencies if any and build your project.
     steps:
     - git-clone@8: {}
-    # - script@1:
-    #     title: Create Keychain
-    #     inputs:
-    #       - content: |-
-    #           #!/bin/bash
-    #           set -ex
-    #           security create-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
-    #           security default-keychain -s login.keychain-db
-    #           security unlock-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
-    #           security set-keychain-settings -t 3600 -l login.keychain-db
+    - script@1:
+        title: Create Keychain
+        inputs:
+          - content: |-
+              #!/bin/bash
+              set -ex
+              security delete-keychain login.keychain-db
+              security create-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
+              security default-keychain -s login.keychain-db
+              security unlock-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
+              security set-keychain-settings -t 3600 -l login.keychain-db
     - certificate-and-profile-installer@1:
         inputs:
           - certificate_url: "file://./Bitrise_Test/distribution.p12"
