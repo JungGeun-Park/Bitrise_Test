@@ -65,6 +65,6 @@ app:
     opts:
       is_expand: false
   - BITRISE_KEYCHAIN_PASSWORD: 123456
-  - BITRISE_TEAM_ID: 22X77ENQ2H
+  - BITRISE_TEAM_ID: 415463
   - APPLE_ID: puzznic@inka.co.kr
   - APPLE_APP_SPECIFIC_PASSWORD: qbrz-hmfz-robj-eohm
