@@ -53,9 +53,21 @@ workflows:
               set -ex
               BUNDLE_ID=$(xcodebuild -showBuildSettings -project "$BITRISE_PROJECT_PATH" -target "$BITRISE_SCHEME" | grep PRODUCT_BUNDLE_IDENTIFIER | awk -F ' = ' '{print $2}' | tail -n 1)
               envman add --key BITRISE_APP_BUNDLE_ID --value "$BUNDLE_ID"
+    - script@1:
+        title: Run Generate Hash
+        inputs:
+          - content: |-
+              #!/bin/bash
+              set -ex
+              cd "$BITRISE_SOURCE_DIR"
+              chmod +x ./generate_hash
+              ./generate_hash "$BITRISE_IPA_PATH"
+              # 재서명된 IPA 경로를 환경변수로 저장
+              SIGNED_IPA_PATH="$(dirname "$BITRISE_IPA_PATH")/signed.ipa"
+              envman add --key SIGNED_IPA_PATH --value "$SIGNED_IPA_PATH"
     - deploy-to-itunesconnect-deliver@2:
         inputs:
-          - ipa_path: "$BITRISE_IPA_PATH"
+          - ipa_path: "$SIGNED_IPA_PATH"
           - bundle_id: "$BITRISE_APP_BUNDLE_ID"
     - deploy-to-bitrise-io@2: {}    
     triggers:
