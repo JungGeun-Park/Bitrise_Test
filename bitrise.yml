@@ -29,6 +29,12 @@ workflows:
           - keychain_path: "$HOME/Library/Keychains/login.keychain-db"
           - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
           - team_id: "$BITRISE_TEAM_ID"
+    - set-xcode-build-number@1:
+        title: Set Build Number
+        inputs:
+          - build_number: "$BITRISE_BUILD_NUMBER"
+          - plist_path: "$BITRISE_SOURCE_DIR/Bitrise_Test/Info.plist"
+          - project_path: "$BITRISE_PROJECT_PATH"
     - xcode-archive@5:
         inputs:
           - project_path: "$BITRISE_PROJECT_PATH"
