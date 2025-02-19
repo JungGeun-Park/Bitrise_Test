@@ -44,7 +44,7 @@ workflows:
               #!/bin/bash
               set -ex
               BUNDLE_ID=$(grep -A1 "PRODUCT_BUNDLE_IDENTIFIER" "$BITRISE_PROJECT_PATH/project.pbxproj" | grep -v "PRODUCT_BUNDLE_IDENTIFIER" | head -n1 | tr -d '";' | xargs)
-              echo "BITRISE_APP_BUNDLE_ID=$BUNDLE_ID" >> $BITRISE_ENV_RAW
+              echo "BITRISE_APP_BUNDLE_ID=\"$BUNDLE_ID\"" >> "$BITRISE_ENV_RAW"
     - deploy-to-itunesconnect-deliver@2:
         inputs:
           - ipa_path: "$BITRISE_IPA_PATH"
