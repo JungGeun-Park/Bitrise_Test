@@ -37,20 +37,9 @@ workflows:
           - automatic_code_signing: api-key
           - cache_level: none
           - team_id: "$BITRISE_TEAM_ID"
-    # - deploy-to-itunesconnect-application-loader@1:
-    #     inputs:
-    #       - ipa_path: "$BITRISE_IPA_PATH"
-    #       - apple_id_email: "$APPLE_ID"
-    #       - app_specific_password: "$APPLE_APP_SPECIFIC_PASSWORD"
-    #       - team_id: "$BITRISE_TEAM_ID"
-    # - deploy-to-bitrise-io@2: {}
     - deploy-to-itunesconnect-deliver@2:
         inputs:
           - ipa_path: "$BITRISE_IPA_PATH"
-          # - api_key_path: "$BITRISEIO_APP_STORE_CONNECT_API_KEY_URL"
-          # - api_issuer: "$APP_STORE_CONNECT_API_KEY_ISSUER_ID"
-          # - api_key_id: "$APP_STORE_CONNECT_API_KEY_ID"
-          - bundle_id: "com.inka.swift"
     - deploy-to-bitrise-io@2: {}    
     triggers:
       push:
