@@ -37,9 +37,18 @@ workflows:
           - automatic_code_signing: api-key
           - cache_level: none
           - team_id: "$BITRISE_TEAM_ID"
+    - script@1:
+        title: Extract Bundle ID
+        inputs:
+          - content: |-
+              #!/bin/bash
+              set -ex
+              BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$BITRISE_SOURCE_DIR/$BITRISE_SCHEME/Info.plist")
+              echo "BITRISE_APP_BUNDLE_ID=$BUNDLE_ID" >> $BITRISE_ENV_RAW
     - deploy-to-itunesconnect-deliver@2:
         inputs:
           - ipa_path: "$BITRISE_IPA_PATH"
+          - bundle_id: "$BITRISE_APP_BUNDLE_ID"
     - deploy-to-bitrise-io@2: {}    
     triggers:
       push:
