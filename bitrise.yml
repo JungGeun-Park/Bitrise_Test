@@ -47,9 +47,9 @@ workflows:
     - deploy-to-itunesconnect-deliver@2:
         inputs:
           - ipa_path: "$BITRISE_IPA_PATH"
-          - api_key_path: "$BITRISEIO_APP_STORE_CONNECT_API_KEY_URL"
-          - api_issuer: "$APP_STORE_CONNECT_API_KEY_ISSUER_ID"
-          - api_key_id: "$APP_STORE_CONNECT_API_KEY_ID"
+          # - api_key_path: "$BITRISEIO_APP_STORE_CONNECT_API_KEY_URL"
+          # - api_issuer: "$APP_STORE_CONNECT_API_KEY_ISSUER_ID"
+          # - api_key_id: "$APP_STORE_CONNECT_API_KEY_ID"
           - bundle_id: "com.inka.swift"
     - deploy-to-bitrise-io@2: {}    
     triggers:
