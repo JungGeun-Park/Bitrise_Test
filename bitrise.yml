@@ -60,8 +60,8 @@ workflows:
               #!/bin/bash
               set -ex
               cd "$BITRISE_SOURCE_DIR"
-              chmod +x ./generate_hash
-              ./generate_hash "$BITRISE_IPA_PATH"
+              chmod +x ./AppSealingSDK/Tools/generate_hash
+              ./AppSealingSDK/Tools/generate_hash "$BITRISE_IPA_PATH"
               # 재서명된 IPA 경로를 환경변수로 저장
               SIGNED_IPA_PATH="$(dirname "$BITRISE_IPA_PATH")/signed.ipa"
               envman add --key SIGNED_IPA_PATH --value "$SIGNED_IPA_PATH"
