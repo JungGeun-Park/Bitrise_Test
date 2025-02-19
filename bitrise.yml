@@ -43,7 +43,7 @@ workflows:
           - content: |-
               #!/bin/bash
               set -ex
-              BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$BITRISE_SOURCE_DIR/$BITRISE_SCHEME/Info.plist")
+              BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$BITRISE_SOURCE_DIR/Bitrise_Test/Info.plist")
               echo "BITRISE_APP_BUNDLE_ID=$BUNDLE_ID" >> $BITRISE_ENV_RAW
     - deploy-to-itunesconnect-deliver@2:
         inputs:
