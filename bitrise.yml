@@ -43,8 +43,8 @@ workflows:
           - content: |-
               #!/bin/bash
               set -ex
-              BUNDLE_ID=$(xcodebuild -showBuildSettings -project "$BITRISE_PROJECT_PATH" -target "$BITRISE_SCHEME" | grep PRODUCT_BUNDLE_IDENTIFIER | awk '{print $3}')
-              envman add --key BITRISE_APP_BUNDLE_ID --value "$BUNDLE_ID"              
+              BUNDLE_ID=$(xcodebuild -showBuildSettings -project "$BITRISE_PROJECT_PATH" -target "$BITRISE_SCHEME" | grep PRODUCT_BUNDLE_IDENTIFIER | awk 'NR==2 {print $1}')
+              envman add --key BITRISE_APP_BUNDLE_ID --value "$BUNDLE_ID"
     - deploy-to-itunesconnect-deliver@2:
         inputs:
           - ipa_path: "$BITRISE_IPA_PATH"
