@@ -11,24 +11,24 @@ workflows:
       save it.
     steps:
     - git-clone@8: {}
-    - script@1:
-        title: Create Keychain
-        inputs:
-          - content: |-
-              #!/bin/bash
-              set -ex
-              security delete-keychain login.keychain-db
-              security create-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
-              security default-keychain -s login.keychain-db
-              security unlock-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
-              security set-keychain-settings -t 3600 -l login.keychain-db
-    - certificate-and-profile-installer@1:
-        inputs:
-          # - certificate_url: "file://./Bitrise_Test/distribution.p12"
-          # - provisioning_profile_url: "file://./Bitrise_Test/profile.mobileprovision"
-          - keychain_path: "$HOME/Library/Keychains/login.keychain-db"
-          # - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
-          - team_id: "$BITRISE_TEAM_ID"
+    # - script@1:
+    #     title: Create Keychain
+    #     inputs:
+    #       - content: |-
+    #           #!/bin/bash
+    #           set -ex
+    #           security delete-keychain login.keychain-db
+    #           security create-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
+    #           security default-keychain -s login.keychain-db
+    #           security unlock-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
+    #           security set-keychain-settings -t 3600 -l login.keychain-db
+    # - certificate-and-profile-installer@1:
+    #     inputs:
+    #       # - certificate_url: "file://./Bitrise_Test/distribution.p12"
+    #       # - provisioning_profile_url: "file://./Bitrise_Test/profile.mobileprovision"
+    #       - keychain_path: "$HOME/Library/Keychains/login.keychain-db"
+    #       # - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
+    #       - team_id: "$BITRISE_TEAM_ID"
     - script@1:
         title: Set Build Number
         inputs:
