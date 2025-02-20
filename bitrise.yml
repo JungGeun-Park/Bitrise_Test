@@ -63,22 +63,22 @@ workflows:
               chmod +x ./AppSealingSDK/Tools/generate_hash
               ./AppSealingSDK/Tools/generate_hash "$BITRISE_IPA_PATH"
               
-              # IPA 파일이 생성된 디렉토리
-              IPA_DIR="$(dirname "$BITRISE_IPA_PATH")"
+              # # IPA 파일이 생성된 디렉토리
+              # IPA_DIR="$(dirname "$BITRISE_IPA_PATH")"
               
-              # 새로운 IPA 파일명 생성 (타임스탬프 추가)
-              TIMESTAMP=$(date '+%Y%m%d_%H%M%S')
-              NEW_IPA_NAME="signed_${TIMESTAMP}.ipa"
+              # # 새로운 IPA 파일명 생성 (타임스탬프 추가)
+              # TIMESTAMP=$(date '+%Y%m%d_%H%M%S')
+              # NEW_IPA_NAME="signed_${TIMESTAMP}.ipa"
               
-              # signed.ipa 파일명 변경
-              mv "$IPA_DIR/signed.ipa" "$IPA_DIR/$NEW_IPA_NAME"
+              # # signed.ipa 파일명 변경
+              # mv "$BITRISE_IPA_PATH" "$IPA_DIR/$NEW_IPA_NAME"
               
-              # 새 경로를 환경변수로 저장
-              SIGNED_IPA_PATH="$IPA_DIR/$NEW_IPA_NAME"
-              envman add --key SIGNED_IPA_PATH --value "$SIGNED_IPA_PATH"
+              # # 새 경로를 환경변수로 저장
+              # SIGNED_IPA_PATH="$IPA_DIR/$NEW_IPA_NAME"
+              # envman add --key SIGNED_IPA_PATH --value "$SIGNED_IPA_PATH"
     - deploy-to-itunesconnect-deliver@2:
         inputs:
-          - ipa_path: "$SIGNED_IPA_PATH"
+          - ipa_path: "$BITRISE_IPA_PATH"
           - bundle_id: "$BITRISE_APP_BUNDLE_ID"
           - team_id: "$BITRISE_TEAM_ID"
     - deploy-to-bitrise-io@2: {}    
