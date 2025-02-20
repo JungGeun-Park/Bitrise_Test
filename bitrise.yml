@@ -36,7 +36,7 @@ workflows:
               #!/bin/bash
               set -ex
               cd $BITRISE_SOURCE_DIR
-              agvtool new-version -all $BITRISE_BUILD_NUMBER
+              # agvtool new-version -all $BITRISE_BUILD_NUMBER
     - xcode-archive@5:
         inputs:
           - project_path: "$BITRISE_PROJECT_PATH"
@@ -65,7 +65,7 @@ workflows:
     - deploy-to-itunesconnect-deliver@2:
         inputs:
           - ipa_path: "$BITRISE_IPA_PATH"
-          - bundle_id: "$BITRISE_APP_BUNDLE_ID"
+          # - bundle_id: "$BITRISE_APP_BUNDLE_ID"
     - deploy-to-bitrise-io@2: {}    
     triggers:
       push:
