@@ -44,7 +44,7 @@ workflows:
           - distribution_method: "$BITRISE_DISTRIBUTION_METHOD"
           - automatic_code_signing: api-key
           - cache_level: none
-          - team_id: "$BITRISE_TEAM_ID"
+          # - team_id: "$BITRISE_TEAM_ID"
     - script@1:
         title: Extract Bundle ID
         inputs:
@@ -79,13 +79,7 @@ meta:
 app:
   envs:
   - BITRISE_PROJECT_PATH: Bitrise_Test.xcodeproj
-    opts:
-      is_expand: false
   - BITRISE_SCHEME: Bitrise_Test
-    opts:
-      is_expand: false
   - BITRISE_DISTRIBUTION_METHOD: app-store
-    opts:
-      is_expand: false
   # - BITRISE_KEYCHAIN_PASSWORD: 123456
-  - BITRISE_TEAM_ID: 22X77ENQ2H
+  # - BITRISE_TEAM_ID: 22X77ENQ2H
