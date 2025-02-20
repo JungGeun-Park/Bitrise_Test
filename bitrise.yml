@@ -65,7 +65,7 @@ workflows:
     - deploy-to-itunesconnect-deliver@2:
         inputs:
           - ipa_path: "$BITRISE_IPA_PATH"
-          # - bundle_id: "$BITRISE_APP_BUNDLE_ID"
+          - bundle_id: "$BITRISE_APP_BUNDLE_ID"
     - deploy-to-bitrise-io@2: {}    
     triggers:
       push:
