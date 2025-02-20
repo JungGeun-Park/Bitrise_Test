@@ -105,6 +105,5 @@ meta:
     machine_type_id: g2-m1.4core
 app:
   envs:
-#   - BITRISE_PROJECT_PATH: Bitrise_Test.xcodeproj
-#   - BITRISE_SCHEME: Bitrise_Test
   - BITRISE_KEYCHAIN_PASSWORD: anything
+  - CERTIFICATE_PASSWORD: 123456
