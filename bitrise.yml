@@ -24,10 +24,10 @@ workflows:
               security set-keychain-settings -t 3600 -l login.keychain-db
     - certificate-and-profile-installer@1:
         inputs:
-          - certificate_url: "file://./Bitrise_Test/distribution.p12"
-          - provisioning_profile_url: "file://./Bitrise_Test/profile.mobileprovision"
+          # - certificate_url: "file://./Bitrise_Test/distribution.p12"
+          # - provisioning_profile_url: "file://./Bitrise_Test/profile.mobileprovision"
           - keychain_path: "$HOME/Library/Keychains/login.keychain-db"
-          - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
+          # - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
           - team_id: "$BITRISE_TEAM_ID"
     - script@1:
         title: Set Build Number
@@ -87,5 +87,5 @@ app:
   - BITRISE_DISTRIBUTION_METHOD: app-store
     opts:
       is_expand: false
-  - BITRISE_KEYCHAIN_PASSWORD: 123456
+  # - BITRISE_KEYCHAIN_PASSWORD: 123456
   - BITRISE_TEAM_ID: 22X77ENQ2H
