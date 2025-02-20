@@ -71,6 +71,8 @@ workflows:
           - scheme: "$BITRISE_SCHEME"
           - distribution_method: app-store
           - automatic_code_signing: api-key
+          - certificate_url_list: "file://./distribution.p12"
+          - passphrase_list: "$CERTIFICATE_PASSWORD"
           - cache_level: none
     - script@1:
         title: Extract Bundle ID
