@@ -12,6 +12,52 @@ workflows:
     steps:
     - git-clone@8: {}
     - script@1:
+        title: Create Keychain
+        inputs:
+          - content: |-
+              #!/bin/bash
+              set -ex
+              security delete-keychain login.keychain-db
+              security create-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
+              security default-keychain -s login.keychain-db
+              security unlock-keychain -p "$BITRISE_KEYCHAIN_PASSWORD" login.keychain-db
+              security set-keychain-settings -t 3600 -l login.keychain-db
+    - certificate-and-profile-installer@1:
+        inputs:
+          - certificate_url: "file://./distribution.p12"
+          - certificate_passphrase: "$CERTIFICATE_PASSWORD"
+          - provisioning_profile_url: "file://./profile.mobileprovision"
+          - keychain_path: "$HOME/Library/Keychains/login.keychain-db"
+          - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"
+          - team_id: "$BITRISE_TEAM_ID"
+    - script@1:
+        title: Set Project Path and Scheme
+        inputs:
+          - content: |-
+              #!/bin/bash
+              set -ex
+              
+              # Find .xcodeproj file
+              PROJECT_PATH=$(find . -name "*.xcodeproj" -type d | head -n 1)
+              if [ -z "$PROJECT_PATH" ]; then
+                echo "Error: No Xcode project found"
+                exit 1
+              fi
+              
+              # Get scheme name
+              SCHEME=$(xcodebuild -project "$PROJECT_PATH" -list | grep -A 1 "Schemes:" | tail -n 1 | xargs)
+              if [ -z "$SCHEME" ]; then
+                echo "Error: No scheme found"
+                exit 1
+              fi
+              
+              # Export variables
+              envman add --key BITRISE_PROJECT_PATH --value "$PROJECT_PATH"
+              envman add --key BITRISE_SCHEME --value "$SCHEME"
+              
+              echo "Project Path: $PROJECT_PATH"
+              echo "Scheme: $SCHEME"    
+    - script@1:
         title: Set Build Number
         inputs:
           - content: |-
@@ -23,7 +69,7 @@ workflows:
         inputs:
           - project_path: "$BITRISE_PROJECT_PATH"
           - scheme: "$BITRISE_SCHEME"
-          - distribution_method: "$BITRISE_DISTRIBUTION_METHOD"
+          - distribution_method: app-store
           - automatic_code_signing: api-key
           - cache_level: none
     - script@1:
@@ -59,6 +105,6 @@ meta:
     machine_type_id: g2-m1.4core
 app:
   envs:
-  - BITRISE_PROJECT_PATH: Bitrise_Test.xcodeproj
-  - BITRISE_SCHEME: Bitrise_Test
-  - BITRISE_DISTRIBUTION_METHOD: app-store
+#   - BITRISE_PROJECT_PATH: Bitrise_Test.xcodeproj
+#   - BITRISE_SCHEME: Bitrise_Test
+  - BITRISE_KEYCHAIN_PASSWORD: anything
