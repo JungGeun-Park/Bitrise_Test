@@ -29,14 +29,14 @@ workflows:
     #       - keychain_path: "$HOME/Library/Keychains/login.keychain-db"
     #       # - keychain_password: "$BITRISE_KEYCHAIN_PASSWORD"    
     #       - team_id: "$BITRISE_TEAM_ID"
-    - script@1:
-        title: Set Build Number
-        inputs:
-          - content: |-
-              #!/bin/bash
-              set -ex
-              cd $BITRISE_SOURCE_DIR
-              agvtool new-version -all $BITRISE_BUILD_NUMBER
+    # - script@1:
+    #     title: Set Build Number
+    #     inputs:
+    #       - content: |-
+    #           #!/bin/bash
+    #           set -ex
+    #           cd $BITRISE_SOURCE_DIR
+    #           agvtool new-version -all $BITRISE_BUILD_NUMBER
     - xcode-archive@5:
         inputs:
           - project_path: "$BITRISE_PROJECT_PATH"
@@ -44,7 +44,6 @@ workflows:
           - distribution_method: "$BITRISE_DISTRIBUTION_METHOD"
           - automatic_code_signing: api-key
           - cache_level: none
-          # - team_id: "$BITRISE_TEAM_ID"
     - script@1:
         title: Extract Bundle ID
         inputs:
